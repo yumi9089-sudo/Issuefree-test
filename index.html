@@ -3163,6 +3163,51 @@
     color: var(--danger);
   }
 
+  /* === 필수 입력 마크 === */
+  .required-mark {
+    color: var(--danger);
+    font-weight: 700;
+    margin-left: 2px;
+    font-size: 14px;
+  }
+  /* 검증 실패 시 강조 */
+  .form-input.invalid,
+  .form-select.invalid,
+  .form-textarea.invalid,
+  .q-textarea.invalid {
+    border-color: var(--danger) !important;
+    background: #FEF8F8 !important;
+    animation: shake 0.3s ease;
+  }
+  .question-card.invalid {
+    border: 2px solid var(--danger);
+    background: #FEF8F8;
+    animation: shake 0.3s ease;
+  }
+  .branch-card.invalid {
+    border: 2px solid var(--danger);
+    animation: shake 0.3s ease;
+  }
+  /* 분기 섹션(step 4 체크리스트), 기능 행(step 5) 검증 강조 */
+  .branch-section.invalid {
+    border: 2px solid var(--danger);
+    background: #FEF8F8;
+    border-radius: 8px;
+    padding: 12px;
+    animation: shake 0.3s ease;
+  }
+  .func-row.invalid {
+    outline: 2px solid var(--danger);
+    background: #FEF8F8;
+    border-radius: 6px;
+    animation: shake 0.3s ease;
+  }
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+  }
+
   .q-body {
     padding-left: 42px;
   }
@@ -3299,6 +3344,35 @@
     align-items: center;
     justify-content: center;
   }
+
+  /* === Q5 카테고리 그룹 (이슈프리 정의 키워드별 분류) === */
+  .comp-group {
+    margin-bottom: 14px;
+  }
+  .comp-group:last-child { margin-bottom: 0; }
+  .comp-group-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 12px;
+    background: var(--bg-2);
+    border-radius: 100px;
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--ink-2);
+    letter-spacing: 0.02em;
+    margin-bottom: 9px;
+  }
+  .comp-group-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .comp-group-dot.dot-1 { background: #305adb; }   /* 정보관리 - 메인 블루 */
+  .comp-group-dot.dot-2 { background: #f5a623; }   /* 운영관리 - 오렌지 */
+  .comp-group-dot.dot-3 { background: #1ea672; }   /* 직원역량 - 그린 */
+  .comp-group-dot.dot-4 { background: #c93f7f; }   /* 리스크관리 - 핑크 */
 
   /* === Final decision (개선판) === */
   .decision-grid {
@@ -3894,6 +3968,193 @@
 
   .admin-panel { display: none; }
   .admin-panel.show { display: block; animation: pageIn 0.25s ease; }
+
+  /* === 나의 진행 현황 (사용자) === */
+  .my-progress-summary {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .mps-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px 18px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.18s ease;
+  }
+  .mps-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+  }
+  .mps-card.mps-등록완료::before { background: #f5a623; }
+  .mps-card.mps-검토중::before   { background: #3a7bdb; }
+  .mps-card.mps-검토완료::before { background: #1ea672; }
+  .mps-card .mps-label {
+    font-size: 12px;
+    color: var(--ink-3);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .mps-card .mps-count {
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--ink);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .mps-card .mps-desc {
+    font-size: 12px;
+    color: var(--ink-3);
+  }
+
+  .my-err-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .my-err-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px 18px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: grid;
+    grid-template-columns: auto auto 1fr auto auto;
+    gap: 14px;
+    align-items: center;
+  }
+  .my-err-card:hover {
+    border-color: var(--brand-main);
+    box-shadow: 0 4px 14px rgba(48, 90, 219, 0.08);
+    transform: translateY(-1px);
+  }
+  .my-err-card .mec-id {
+    font-size: 12px;
+    color: var(--ink-3);
+    font-weight: 700;
+    font-family: 'SF Mono', Consolas, monospace;
+    min-width: 64px;
+  }
+  .my-err-card .mec-menu {
+    flex-shrink: 0;
+  }
+  .my-err-card .mec-content {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  .my-err-card .mec-meta {
+    font-size: 11.5px;
+    color: var(--ink-3);
+    text-align: right;
+    min-width: 110px;
+  }
+  .my-err-card .mec-meta .mec-date {
+    margin-bottom: 4px;
+  }
+  .my-err-card .mec-stage {
+    flex-shrink: 0;
+  }
+  @media (max-width: 768px) {
+    .my-progress-summary { grid-template-columns: 1fr; }
+    .my-err-card {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .my-err-card .mec-meta { text-align: left; }
+  }
+
+  /* 빈 상태 */
+  .my-err-list .empty-state {
+    background: var(--surface);
+    border: 1px dashed var(--line);
+    border-radius: 12px;
+    padding: 60px 20px;
+    text-align: center;
+  }
+
+  /* === Bulk action bar (체크박스 선택 시 표시) === */
+  .bulk-action-bar {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(135deg, var(--brand-main-soft), rgba(48, 90, 219, 0.04));
+    border: 1px solid var(--brand-main);
+    border-radius: 10px;
+    padding: 10px 16px;
+    margin-bottom: 12px;
+    animation: pageIn 0.18s ease;
+  }
+  .bulk-action-bar.show { display: flex; }
+  .bulk-action-bar .bulk-info {
+    font-size: 13.5px;
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .bulk-action-bar .bulk-count {
+    color: var(--brand-main);
+    font-weight: 800;
+    font-size: 15px;
+    margin-right: 2px;
+  }
+  .bulk-action-bar .bulk-actions {
+    display: flex;
+    gap: 8px;
+  }
+  .btn.btn-sm {
+    padding: 7px 14px !important;
+    font-size: 12.5px !important;
+    border-radius: 7px !important;
+  }
+  .btn.btn-danger {
+    background: var(--danger, #e23f3f) !important;
+    color: #fff !important;
+    border: none !important;
+  }
+  .btn.btn-danger:hover {
+    background: #c92929 !important;
+    transform: translateY(-1px);
+  }
+
+  /* === Row checkbox === */
+  .row-check {
+    width: 17px;
+    height: 17px;
+    accent-color: var(--brand-main);
+    cursor: pointer;
+    vertical-align: middle;
+  }
+  .admin-table-selectable td.col-check,
+  .admin-table-selectable th:first-child {
+    text-align: center;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+  .admin-table-selectable tbody tr.row-selected {
+    background: rgba(48, 90, 219, 0.06) !important;
+  }
+  .admin-table-selectable tbody tr.row-selected:hover {
+    background: rgba(48, 90, 219, 0.10) !important;
+  }
+  /* 체크박스 셀 클릭 시 row 클릭으로 전파되지 않도록 */
+  .admin-table-selectable td.col-check {
+    cursor: default;
+  }
 
   /* Filter bar */
   .filter-bar {
@@ -5385,6 +5646,18 @@
         </div>
       </div>
 
+      <!-- 사용자 탭 -->
+      <div class="admin-tabs" style="margin-bottom: 16px;">
+        <button type="button" class="admin-tab active" data-err-tab="register" onclick="switchErrTab('register')">
+          ✍ 오류카드 등록
+        </button>
+        <button type="button" class="admin-tab" data-err-tab="my" onclick="switchErrTab('my')">
+          📊 나의 진행현황 보기 <span class="count" id="myErrCount">0</span>
+        </button>
+      </div>
+
+      <!-- 탭 1: 오류 카드 등록 -->
+      <div class="admin-panel show" id="err-panel-register">
       <div class="form-card">
         <div class="form-card-head">
           <div class="ico">⚠</div>
@@ -5465,7 +5738,69 @@
           </div>
         </form>
       </div>
+      </div><!-- /err-panel-register -->
+
+      <!-- 탭 2: 나의 진행 현황 -->
+      <div class="admin-panel" id="err-panel-my">
+        <div class="filter-bar">
+          <span class="filter-label">필터</span>
+          <select id="myErrStage" onchange="renderMyErrors()">
+            <option value="">전체 단계</option>
+            <option value="등록 완료">등록 완료</option>
+            <option value="검토 중">검토 중</option>
+            <option value="검토 완료">검토 완료</option>
+          </select>
+          <select id="myErrMenu" onchange="renderMyErrors()">
+            <option value="">전체 메뉴</option>
+            <option>노무</option>
+            <option>산업재해</option>
+            <option>내정보</option>
+            <option>공지사항</option>
+          </select>
+          <input type="text" id="myErrSearch" class="search-input" placeholder="🔍 내용으로 검색" oninput="renderMyErrors()" />
+          <div class="filter-summary"><strong id="myErrFiltered">0</strong> / <span id="myErrTotalShown">0</span>건</div>
+          <button type="button" class="btn btn-ghost btn-sm" onclick="refreshMyErrors()" style="font-size: 12.5px;">
+            🔄 새로고침
+          </button>
+        </div>
+
+        <div class="my-progress-summary" id="myProgressSummary">
+          <div class="mps-card mps-등록완료">
+            <div class="mps-label">등록 완료</div>
+            <div class="mps-count" id="mps-count-등록완료">0</div>
+            <div class="mps-desc">관리자 검토 대기 중</div>
+          </div>
+          <div class="mps-card mps-검토중">
+            <div class="mps-label">검토 중</div>
+            <div class="mps-count" id="mps-count-검토중">0</div>
+            <div class="mps-desc">관리자 확인 진행 중</div>
+          </div>
+          <div class="mps-card mps-검토완료">
+            <div class="mps-label">검토 완료</div>
+            <div class="mps-count" id="mps-count-검토완료">0</div>
+            <div class="mps-desc">조치 완료</div>
+          </div>
+        </div>
+
+        <div id="myErrList" class="my-err-list">
+          <!-- 카드 리스트가 여기 렌더링됨 -->
+        </div>
+      </div>
     </section>
+
+    <!-- 나의 오류 상세 모달 -->
+    <div class="modal-overlay" id="myErrDetailModal">
+      <div class="admin-modal">
+        <div class="admin-modal-head">
+          <div class="meta">
+            <div class="modal-id" id="myErrModalId">ERR-000</div>
+            <h3 id="myErrModalTitle">오류 카드 상세</h3>
+          </div>
+          <button type="button" class="modal-close-btn" onclick="closeModal('myErrDetailModal')">✕</button>
+        </div>
+        <div class="admin-modal-body" id="myErrModalBody"></div>
+      </div>
+    </div>
 
     <!-- ============================
          PAGE: RESULT FORM
@@ -5533,7 +5868,7 @@
 
             <div class="row-2">
               <div class="form-group">
-                <label class="form-label">사업부명</label>
+                <label class="form-label">사업부명 <span class="required-mark">*</span></label>
                 <select class="form-select" id="r_dept" required>
                   <option value="">선택해주세요</option>
                   <option>HR-biz</option>
@@ -5545,7 +5880,7 @@
                 </select>
               </div>
               <div class="form-group">
-                <label class="form-label">팀명</label>
+                <label class="form-label">팀명 <span class="required-mark">*</span></label>
                 <input type="text" class="form-input" id="r_team" placeholder="예: HR기획팀" required />
               </div>
             </div>
@@ -5556,14 +5891,14 @@
                 <input type="text" class="form-input auto-field" id="r_leader" readonly />
               </div>
               <div class="form-group">
-                <label class="form-label">테스트 수행일</label>
+                <label class="form-label">테스트 수행일 <span class="required-mark">*</span></label>
                 <input type="date" class="form-input" id="r_date" required />
               </div>
             </div>
 
             <div class="form-group">
-              <label class="form-label">테스트 참여자 <span style="font-weight: 400; color: var(--ink-3);">(복수 입력 가능, 쉼표로 구분)</span></label>
-              <input type="text" class="form-input" id="r_members" placeholder="예: 김철수, 이영희, 박민수" />
+              <label class="form-label">테스트 참여자 <span class="required-mark">*</span> <span style="font-weight: 400; color: var(--ink-3);">(복수 입력 가능, 쉼표로 구분)</span></label>
+              <input type="text" class="form-input" id="r_members" placeholder="예: 김철수, 이영희, 박민수" required />
             </div>
           </div>
 
@@ -5600,13 +5935,13 @@
             <!-- A: 노무 -->
             <div class="branch-section" id="branch-A-3">
               <div class="form-group">
-                <label class="form-label">이슈 제목</label>
-                <input type="text" class="form-input" id="rA_title" placeholder="이슈를 식별할 수 있는 제목을 입력해 주세요." />
+                <label class="form-label">이슈 제목 <span class="required-mark">*</span></label>
+                <input type="text" class="form-input" id="rA_title" placeholder="이슈를 식별할 수 있는 제목을 입력해 주세요." data-required-when="branch-A" />
               </div>
 
               <div class="form-group">
-                <label class="form-label">노무 상세 유형</label>
-                <select class="form-select" id="rA_subtype" onchange="toggleHarassOptions()">
+                <label class="form-label">노무 상세 유형 <span class="required-mark">*</span></label>
+                <select class="form-select" id="rA_subtype" onchange="toggleHarassOptions()" data-required-when="branch-A">
                   <option value="">선택해주세요</option>
                   <option>직장내괴롭힘/성희롱</option>
                   <option>기타 진정건</option>
@@ -5647,14 +5982,14 @@
             <!-- B: 산업재해 -->
             <div class="branch-section" id="branch-B-3">
               <div class="form-group">
-                <label class="form-label">사고 제목</label>
-                <input type="text" class="form-input" id="rB_title" placeholder="사고를 식별할 수 있는 제목을 입력해 주세요." />
+                <label class="form-label">사고 제목 <span class="required-mark">*</span></label>
+                <input type="text" class="form-input" id="rB_title" placeholder="사고를 식별할 수 있는 제목을 입력해 주세요." data-required-when="branch-B" />
               </div>
 
               <div class="row-2">
                 <div class="form-group">
-                  <label class="form-label">산업재해 상세 유형</label>
-                  <select class="form-select" id="rB_subtype">
+                  <label class="form-label">산업재해 상세 유형 <span class="required-mark">*</span></label>
+                  <select class="form-select" id="rB_subtype" data-required-when="branch-B">
                     <option value="">선택해주세요</option>
                     <option>중대재해</option>
                     <option>업무상 사고</option>
@@ -5665,7 +6000,7 @@
                   </select>
                 </div>
                 <div class="form-group">
-                  <label class="form-label">안전위원회 진행 여부</label>
+                  <label class="form-label">안전위원회 진행 여부 <span class="required-mark">*</span></label>
                   <div class="yn-options" style="display: flex; gap: 6px; margin-top: 6px;">
                     <input type="radio" class="y" name="rB_safetyPanel" id="rB_sp_y" value="Y" style="display:none;"><label for="rB_sp_y" style="flex:1;text-align:center;padding:10px;background:var(--surface-alt);border:1.5px solid var(--line);border-radius:6px;font-size:12.5px;font-weight:600;cursor:pointer;color:var(--ink-3);">YES</label>
                     <input type="radio" class="n" name="rB_safetyPanel" id="rB_sp_n" value="N" style="display:none;"><label for="rB_sp_n" style="flex:1;text-align:center;padding:10px;background:var(--surface-alt);border:1.5px solid var(--line);border-radius:6px;font-size:12.5px;font-weight:600;cursor:pointer;color:var(--ink-3);">NO</label>
@@ -5675,12 +6010,12 @@
 
               <div class="row-2">
                 <div class="form-group">
-                  <label class="form-label">등록자</label>
-                  <input type="text" class="form-input" id="rB_register" />
+                  <label class="form-label">등록자 <span class="required-mark">*</span></label>
+                  <input type="text" class="form-input" id="rB_register" data-required-when="branch-B" />
                 </div>
                 <div class="form-group">
-                  <label class="form-label">결재자</label>
-                  <input type="text" class="form-input" id="rB_approver" />
+                  <label class="form-label">결재자 <span class="required-mark">*</span></label>
+                  <input type="text" class="form-input" id="rB_approver" data-required-when="branch-B" />
                 </div>
               </div>
             </div>
@@ -5690,8 +6025,8 @@
           <div class="form-step" data-step="4">
             <div class="step-header">
               <span class="step-tag">STEP 04</span>
-              <h2>프로세스 수행 결과</h2>
-              <p>실제로 수행하신 단계를 모두 체크해 주세요.</p>
+              <h2>프로세스 수행 결과 <span class="required-mark">*</span></h2>
+              <p>실제로 수행하신 단계를 모두 체크해 주세요. <strong style="color: var(--danger);">최소 1개 이상 체크 필수.</strong></p>
             </div>
 
             <!-- A -->
@@ -5726,8 +6061,8 @@
           <div class="form-step" data-step="5">
             <div class="step-header">
               <span class="step-tag">STEP 05</span>
-              <h2>기능 정상 작동 여부</h2>
-              <p>각 검증 항목별로 정상 / 오류를 선택하고, 오류일 경우 유형을 함께 골라 주세요.</p>
+              <h2>기능 정상 작동 여부 <span class="required-mark">*</span></h2>
+              <p>각 검증 항목별로 정상 / 오류를 선택하고, 오류일 경우 유형을 함께 골라 주세요. <strong style="color: var(--danger);">모든 항목 필수.</strong></p>
             </div>
 
             <div class="branch-section" id="branch-A-5">
@@ -5748,28 +6083,28 @@
 
             <div class="yn-quad">
               <div class="yn-row">
-                <div class="yn-q">실제 업무 프로세스와 유사 여부</div>
+                <div class="yn-q">실제 업무 프로세스와 유사 여부 <span class="required-mark">*</span></div>
                 <div class="yn-options">
                   <input type="radio" class="y" name="op_q1" id="op_q1y" value="Y"><label for="op_q1y">YES</label>
                   <input type="radio" class="n" name="op_q1" id="op_q1n" value="N"><label for="op_q1n">NO</label>
                 </div>
               </div>
               <div class="yn-row">
-                <div class="yn-q">현업 사용 가능 여부</div>
+                <div class="yn-q">현업 사용 가능 여부 <span class="required-mark">*</span></div>
                 <div class="yn-options">
                   <input type="radio" class="y" name="op_q2" id="op_q2y" value="Y"><label for="op_q2y">YES</label>
                   <input type="radio" class="n" name="op_q2" id="op_q2n" value="N"><label for="op_q2n">NO</label>
                 </div>
               </div>
               <div class="yn-row">
-                <div class="yn-q">필수 기능 누락 여부</div>
+                <div class="yn-q">필수 기능 누락 여부 <span class="required-mark">*</span></div>
                 <div class="yn-options">
                   <input type="radio" class="y" name="op_q3" id="op_q3y" value="Y"><label for="op_q3y">YES</label>
                   <input type="radio" class="n" name="op_q3" id="op_q3n" value="N"><label for="op_q3n">NO</label>
                 </div>
               </div>
               <div class="yn-row">
-                <div class="yn-q">오픈 전 수정 필요 여부</div>
+                <div class="yn-q">오픈 전 수정 필요 여부 <span class="required-mark">*</span></div>
                 <div class="yn-options">
                   <input type="radio" class="y" name="op_q4" id="op_q4y" value="Y"><label for="op_q4y">YES</label>
                   <input type="radio" class="n" name="op_q4" id="op_q4n" value="N"><label for="op_q4n">NO</label>
@@ -5814,7 +6149,7 @@
                 <div class="q-header">
                   <div class="q-num">Q2</div>
                   <div class="q-text">
-                    <div class="q-title">현업 적용성 <span class="q-tag">서술형</span></div>
+                    <div class="q-title">현업 적용성 <span class="q-tag required">필수</span></div>
                     <div class="q-sub">실제 업무 기준 가장 도움이 되었던 기능 / 프로세스는 무엇인가요?</div>
                   </div>
                 </div>
@@ -5828,7 +6163,7 @@
                 <div class="q-header">
                   <div class="q-num">Q3</div>
                   <div class="q-text">
-                    <div class="q-title">운영 리스크 / 개선 필요사항 <span class="q-tag">서술형</span></div>
+                    <div class="q-title">운영 리스크 / 개선 필요사항 <span class="q-tag required">필수</span></div>
                     <div class="q-sub">실제 운영 시 가장 개선이 필요하다고 판단되는 부분은 무엇인가요?</div>
                   </div>
                 </div>
@@ -5859,15 +6194,51 @@
                 <div class="q-header">
                   <div class="q-num">Q5</div>
                   <div class="q-text">
-                    <div class="q-title">제니엘 이슈프리 핵심 경쟁력 <span class="q-tag">복수 선택</span></div>
-                    <div class="q-sub">이슈프리의 가장 큰 경쟁력은 무엇이라고 생각하시나요?</div>
+                    <div class="q-title">제니엘 이슈프리 핵심 경쟁력 <span class="q-tag required">필수 · 복수 선택</span></div>
+                    <div class="q-sub">이슈프리의 가장 큰 경쟁력은 무엇이라고 생각하시나요? (이슈프리 정의 페이지의 키워드 기반)</div>
                   </div>
                 </div>
                 <div class="q-body">
-                  <div class="comp-chips">
-                    <div class="comp-chip"><input type="checkbox" id="comp1" name="op_comp" value="체계적인 데이터 관리" onchange="updateQ7Progress()"><label for="comp1">체계적인 데이터 관리</label></div>
-                    <div class="comp-chip"><input type="checkbox" id="comp2" name="op_comp" value="업무 생산성" onchange="updateQ7Progress()"><label for="comp2">업무 생산성</label></div>
-                    <div class="comp-chip"><input type="checkbox" id="comp3" name="op_comp" value="데이터를 통한 이슈 예방" onchange="updateQ7Progress()"><label for="comp3">데이터를 통한 이슈 예방</label></div>
+                  <!-- 정보관리 -->
+                  <div class="comp-group">
+                    <div class="comp-group-label"><span class="comp-group-dot dot-1"></span>정보관리</div>
+                    <div class="comp-chips">
+                      <div class="comp-chip"><input type="checkbox" id="comp1" name="op_comp" value="데이터 관리" onchange="updateQ7Progress()"><label for="comp1">데이터 관리</label></div>
+                      <div class="comp-chip"><input type="checkbox" id="comp2" name="op_comp" value="가시성" onchange="updateQ7Progress()"><label for="comp2">가시성</label></div>
+                      <div class="comp-chip"><input type="checkbox" id="comp3" name="op_comp" value="표준화" onchange="updateQ7Progress()"><label for="comp3">표준화</label></div>
+                      <div class="comp-chip"><input type="checkbox" id="comp4" name="op_comp" value="통합" onchange="updateQ7Progress()"><label for="comp4">통합</label></div>
+                    </div>
+                  </div>
+
+                  <!-- 운영관리 -->
+                  <div class="comp-group">
+                    <div class="comp-group-label"><span class="comp-group-dot dot-2"></span>운영관리</div>
+                    <div class="comp-chips">
+                      <div class="comp-chip"><input type="checkbox" id="comp5" name="op_comp" value="프로세스" onchange="updateQ7Progress()"><label for="comp5">프로세스</label></div>
+                      <div class="comp-chip"><input type="checkbox" id="comp6" name="op_comp" value="운영체계" onchange="updateQ7Progress()"><label for="comp6">운영체계</label></div>
+                    </div>
+                  </div>
+
+                  <!-- 직원역량 · 서비스비용 -->
+                  <div class="comp-group">
+                    <div class="comp-group-label"><span class="comp-group-dot dot-3"></span>직원역량 · 서비스비용</div>
+                    <div class="comp-chips">
+                      <div class="comp-chip"><input type="checkbox" id="comp7" name="op_comp" value="인적역량" onchange="updateQ7Progress()"><label for="comp7">인적역량</label></div>
+                      <div class="comp-chip"><input type="checkbox" id="comp8" name="op_comp" value="전문성" onchange="updateQ7Progress()"><label for="comp8">전문성</label></div>
+                      <div class="comp-chip"><input type="checkbox" id="comp9" name="op_comp" value="판단역량" onchange="updateQ7Progress()"><label for="comp9">판단역량</label></div>
+                      <div class="comp-chip"><input type="checkbox" id="comp10" name="op_comp" value="서비스 비용" onchange="updateQ7Progress()"><label for="comp10">서비스 비용</label></div>
+                      <div class="comp-chip"><input type="checkbox" id="comp11" name="op_comp" value="인프라" onchange="updateQ7Progress()"><label for="comp11">인프라</label></div>
+                    </div>
+                  </div>
+
+                  <!-- 리스크관리 -->
+                  <div class="comp-group">
+                    <div class="comp-group-label"><span class="comp-group-dot dot-4"></span>리스크관리</div>
+                    <div class="comp-chips">
+                      <div class="comp-chip"><input type="checkbox" id="comp12" name="op_comp" value="예방체계" onchange="updateQ7Progress()"><label for="comp12">예방체계</label></div>
+                      <div class="comp-chip"><input type="checkbox" id="comp13" name="op_comp" value="통제(중앙관리)" onchange="updateQ7Progress()"><label for="comp13">통제(중앙관리)</label></div>
+                      <div class="comp-chip"><input type="checkbox" id="comp14" name="op_comp" value="조직문화" onchange="updateQ7Progress()"><label for="comp14">조직문화</label></div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -5877,7 +6248,7 @@
                 <div class="q-header">
                   <div class="q-num">Q6</div>
                   <div class="q-text">
-                    <div class="q-title">오픈 전 보완 필요 사항 <span class="q-tag">서술형</span></div>
+                    <div class="q-title">오픈 전 보완 필요 사항 <span class="q-tag required">필수</span></div>
                     <div class="q-sub">정식 오픈 전 반드시 보완이 필요한 부분이 있다면 작성해 주세요.</div>
                   </div>
                 </div>
@@ -5891,7 +6262,7 @@
                 <div class="q-header">
                   <div class="q-num">Q7</div>
                   <div class="q-text">
-                    <div class="q-title">팀 종합 의견 <span class="q-tag">서술형</span></div>
+                    <div class="q-title">팀 종합 의견 <span class="q-tag required">필수</span></div>
                     <div class="q-sub">테스트 전반에 대한 팀의 종합 의견을 자유롭게 작성해 주세요.</div>
                   </div>
                 </div>
@@ -6004,10 +6375,24 @@
           </button>
         </div>
 
+        <!-- 선택 항목 액션 바 -->
+        <div class="bulk-action-bar" id="admErrBulkBar">
+          <div class="bulk-info">
+            <span class="bulk-count" id="admErrSelectedCount">0</span>개 선택됨
+          </div>
+          <div class="bulk-actions">
+            <button type="button" class="btn btn-ghost btn-sm" onclick="clearAdminErrSelection()">선택 해제</button>
+            <button type="button" class="btn btn-danger btn-sm" onclick="deleteSelectedAdminErrors()">🗑 선택 삭제</button>
+          </div>
+        </div>
+
         <div class="admin-table-wrap">
-          <table class="admin-table">
+          <table class="admin-table admin-table-selectable">
             <thead>
               <tr>
+                <th style="width: 42px; text-align: center;">
+                  <input type="checkbox" id="admErrSelectAll" class="row-check" onchange="toggleAllAdminErrSelection(this)" aria-label="전체 선택" />
+                </th>
                 <th style="width: 80px;">ID</th>
                 <th style="width: 95px;">메뉴</th>
                 <th>오류 내용</th>
@@ -6382,6 +6767,10 @@
     if (typeof renderDashboard === 'function') renderDashboard();
     if (typeof renderAdminErrors === 'function') renderAdminErrors();
     if (typeof renderAdminResults === 'function') renderAdminResults();
+    if (typeof updateMyErrCount === 'function') updateMyErrCount();
+    if (typeof renderMyErrors === 'function' && document.getElementById('err-panel-my')?.classList.contains('show')) {
+      renderMyErrors();
+    }
   }
 
   // ====== 로그인 ======
@@ -6569,8 +6958,8 @@
 
   // ====== 네비게이션 ======
   function navigate(page) {
-    // 관리자 페이지 진입 시 권한 체크
-    if (page === 'admin' && !isAdmin(STATE.user)) {
+    // 관리자 페이지 진입 시 권한 체크 (시트의 is_admin 또는 로컬 ADMINS 배열)
+    if (page === 'admin' && !STATE.userIsAdmin && !isAdmin(STATE.user)) {
       alert('관리자 권한이 필요합니다.');
       return;
     }
@@ -6583,7 +6972,167 @@
     if (page === 'method') closeMethod();
     if (page === 'dashboard') renderDashboard();
     if (page === 'admin') renderAdmin();
+    if (page === 'error') {
+      // 오류 페이지 진입 시 '나의 진행 현황' 카운트도 미리 계산
+      updateMyErrCount();
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ====== 오류 등록 페이지 - 탭 전환 ======
+  function switchErrTab(tab) {
+    document.querySelectorAll('[data-err-tab]').forEach(b => {
+      b.classList.toggle('active', b.dataset.errTab === tab);
+    });
+    document.getElementById('err-panel-register').classList.toggle('show', tab === 'register');
+    document.getElementById('err-panel-my').classList.toggle('show', tab === 'my');
+    if (tab === 'my') {
+      renderMyErrors();
+    }
+  }
+
+  // 내가 등록한 오류만 필터링
+  function getMyErrors() {
+    if (!STATE.user) return [];
+    return STATE.errors.filter(e =>
+      (e.reporter || '').trim() === STATE.user.name.trim() &&
+      (e.dept || '').trim() === STATE.user.dept.trim()
+    );
+  }
+
+  // 탭 옆 카운트 업데이트
+  function updateMyErrCount() {
+    const my = getMyErrors();
+    const el = document.getElementById('myErrCount');
+    if (el) el.textContent = my.length;
+  }
+
+  // 나의 오류 카드 렌더링
+  function renderMyErrors() {
+    const stageF = document.getElementById('myErrStage')?.value || '';
+    const menuF = document.getElementById('myErrMenu')?.value || '';
+    const searchF = (document.getElementById('myErrSearch')?.value || '').trim().toLowerCase();
+
+    const myAll = getMyErrors();
+    updateMyErrCount();
+
+    // 단계별 카운트
+    const cntReg = myAll.filter(e => e.stage === '등록 완료').length;
+    const cntMid = myAll.filter(e => e.stage === '검토 중').length;
+    const cntDone = myAll.filter(e => e.stage === '검토 완료').length;
+    document.getElementById('mps-count-등록완료').textContent = cntReg;
+    document.getElementById('mps-count-검토중').textContent = cntMid;
+    document.getElementById('mps-count-검토완료').textContent = cntDone;
+
+    let filtered = myAll.slice();
+    if (stageF) filtered = filtered.filter(e => e.stage === stageF);
+    if (menuF) filtered = filtered.filter(e => e.menu === menuF);
+    if (searchF) filtered = filtered.filter(e =>
+      (e.content || '').toLowerCase().includes(searchF) ||
+      (e.id || '').toLowerCase().includes(searchF)
+    );
+
+    document.getElementById('myErrTotalShown').textContent = myAll.length;
+    document.getElementById('myErrFiltered').textContent = filtered.length;
+
+    const list = document.getElementById('myErrList');
+    if (filtered.length === 0) {
+      if (myAll.length === 0) {
+        list.innerHTML = `<div class="empty-state"><span class="emoji">📭</span>아직 등록한 오류 카드가 없습니다.<br><span style="font-size:13px;color:var(--ink-3);">'오류카드 등록' 탭에서 오류를 등록해보세요.</span></div>`;
+      } else {
+        list.innerHTML = `<div class="empty-state"><span class="emoji">🔍</span>조건에 맞는 오류 카드가 없습니다.</div>`;
+      }
+      return;
+    }
+
+    const menuClassMap = { '노무': 'menu-1', '산업재해': 'menu-2', '내정보': 'menu-3', '공지사항': 'menu-4' };
+    list.innerHTML = filtered.map(e => {
+      const sCls = stageClassName(e.stage);
+      return `
+      <div class="my-err-card" onclick="openMyErrDetail('${escapeAttr(e.id)}')">
+        <div class="mec-id">${e.id}</div>
+        <div class="mec-menu"><span class="tag ${menuClassMap[e.menu] || 'menu-4'}">${e.menu}</span></div>
+        <div class="mec-content">${escapeHTML(e.content)}</div>
+        <div class="mec-meta">
+          <div class="mec-date">${escapeHTML(e.date || '-')}</div>
+          <div>${escapeHTML(e.errType || '-')}</div>
+        </div>
+        <div class="mec-stage"><span class="stage-chip s-${sCls}"><span class="dot"></span>${e.stage}</span></div>
+      </div>`;
+    }).join('');
+  }
+
+  // 나의 오류 상세 모달
+  function openMyErrDetail(id) {
+    const err = STATE.errors.find(x => x.id === id);
+    if (!err) return;
+    document.getElementById('myErrModalId').textContent = err.id;
+    document.getElementById('myErrModalTitle').textContent = err.menu + ' · ' + (err.errType || '오류 카드');
+
+    const sCls = stageClassName(err.stage);
+    const reviewerHtml = err.reviewer ? `
+      <div class="info-cell">
+        <div class="label">검토자 / 검토일시</div>
+        <div class="value">${escapeHTML(err.reviewer)} · ${escapeHTML(err.reviewDate || '-')}</div>
+      </div>` : `
+      <div class="info-cell">
+        <div class="label">검토자</div>
+        <div class="value" style="color:var(--ink-3);">아직 검토되지 않았습니다.</div>
+      </div>`;
+
+    const adminNoteHtml = err.adminNote ? `
+      <div class="info-cell" style="background:var(--brand-main-soft);border-color:var(--brand-main);">
+        <div class="label" style="color:var(--brand-main);">관리자 메모 / 조치 내역</div>
+        <div class="value" style="white-space:pre-wrap;">${escapeHTML(err.adminNote)}</div>
+      </div>` : `
+      <div class="info-cell">
+        <div class="label">관리자 메모 / 조치 내역</div>
+        <div class="value" style="color:var(--ink-3);">관리자 메모가 아직 없습니다.</div>
+      </div>`;
+
+    document.getElementById('myErrModalBody').innerHTML = `
+      <div class="info-grid">
+        <div class="info-cell">
+          <div class="label">현재 단계</div>
+          <div class="value"><span class="stage-chip s-${sCls}"><span class="dot"></span>${err.stage}</span></div>
+        </div>
+        <div class="info-cell">
+          <div class="label">메뉴 / 이슈 유형</div>
+          <div class="value">${escapeHTML(err.menu)} · ${escapeHTML(err.issueType || '-')}</div>
+        </div>
+        <div class="info-cell">
+          <div class="label">오류 종류</div>
+          <div class="value">${escapeHTML(err.errType || '-')}</div>
+        </div>
+        <div class="info-cell">
+          <div class="label">등록일시</div>
+          <div class="value">${escapeHTML(err.date || '-')}</div>
+        </div>
+        ${err.issueNo ? `
+        <div class="info-cell" style="grid-column: 1 / -1;">
+          <div class="label">이슈 번호</div>
+          <div class="value" style="font-family:'SF Mono',Consolas,monospace;font-size:12px;word-break:break-all;">${escapeHTML(err.issueNo)}</div>
+        </div>` : ''}
+        <div class="info-cell" style="grid-column: 1 / -1;">
+          <div class="label">오류 내용</div>
+          <div class="value" style="white-space:pre-wrap;">${escapeHTML(err.content)}</div>
+        </div>
+        ${reviewerHtml}
+        ${adminNoteHtml}
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:18px;">
+        <button type="button" class="btn btn-ghost" onclick="closeModal('myErrDetailModal')">닫기</button>
+      </div>
+    `;
+    openModal('myErrDetailModal');
+  }
+
+  // 나의 진행현황 새로고침 (Sheets에서 다시 로드)
+  async function refreshMyErrors() {
+    if (!STATE.user) return;
+    await loadAllData();
+    renderMyErrors();
+    renderDashboard();
   }
 
   // ====== Method 카드 ======
@@ -6729,6 +7278,7 @@
     document.getElementById('errorForm').reset();
     fillAutoFields();
     updateIssueTypes();
+    if (typeof updateMyErrCount === 'function') updateMyErrCount();
     document.getElementById('successTitle').textContent = '오류가 등록되었습니다';
     document.getElementById('successMsg').innerHTML = `오류 ID <strong style="color: var(--brand-main);">${displayId}</strong>로 등록되었습니다.<br>대시보드에서 처리 현황을 확인하실 수 있습니다.`;
     openModal('successModal');
@@ -6850,10 +7400,252 @@
     }
   }
 
+  // ====== 결과 폼 통합 검증 ======
+  // 반환: 누락 항목 배열 [{label, element}]
+  function validateResultForm() {
+    const errors = [];
+
+    // 이전 invalid 표시 제거
+    document.querySelectorAll('.form-input.invalid, .form-select.invalid, .form-textarea.invalid, .q-textarea.invalid, .question-card.invalid, .branch-card.invalid, .branch-section.invalid, .func-row.invalid')
+      .forEach(el => el.classList.remove('invalid'));
+
+    // 헬퍼
+    const markInvalid = (el) => { if (el) el.classList.add('invalid'); };
+    const markCard = (qSel) => { const c = document.querySelector(qSel); if (c) c.classList.add('invalid'); };
+
+    // === STEP 1: 기본 정보 ===
+    const basicFields = [
+      { id: 'r_dept', label: '소속 본부/실' },
+      { id: 'r_team', label: '소속 팀' },
+      { id: 'r_date', label: '테스트 수행일' },
+      { id: 'r_members', label: '테스트 참여자' },
+    ];
+    basicFields.forEach(f => {
+      const el = document.getElementById(f.id);
+      if (el && !el.value.trim()) {
+        errors.push({ label: f.label, element: el });
+        markInvalid(el);
+      }
+    });
+
+    // === STEP 2: 이슈 분기 ===
+    if (!STATE.currentBranch) {
+      const branchCard = document.querySelector('.branch-card');
+      errors.push({ label: '이슈 분기 선택 (노무 / 산업재해)', element: branchCard });
+      document.querySelectorAll('.branch-card').forEach(c => c.classList.add('invalid'));
+    }
+
+    // === STEP 3: 분기별 상세 ===
+    if (STATE.currentBranch === 'A') {
+      const aFields = [
+        { id: 'rA_title', label: '[노무] 이슈 제목' },
+        { id: 'rA_subtype', label: '[노무] 노무 상세 유형' },
+      ];
+      aFields.forEach(f => {
+        const el = document.getElementById(f.id);
+        if (el && !el.value.trim()) {
+          errors.push({ label: f.label, element: el });
+          markInvalid(el);
+        }
+      });
+      // 직장내괴롭힘/성희롱이면 판단/징계 위원회 라디오도 필수
+      const aSubtype = document.getElementById('rA_subtype')?.value;
+      if (aSubtype === '직장내괴롭힘/성희롱') {
+        if (!document.querySelector('input[name="rA_panel"]:checked')) {
+          const target = document.getElementById('rA_panel_y');
+          errors.push({ label: '[노무] 판단위원회 진행 여부', element: target });
+        }
+        if (!document.querySelector('input[name="rA_disc"]:checked')) {
+          const target = document.getElementById('rA_disc_y');
+          errors.push({ label: '[노무] 징계위원회 진행 여부', element: target });
+        }
+      }
+    } else if (STATE.currentBranch === 'B') {
+      const bFields = [
+        { id: 'rB_title', label: '[산업재해] 사고 제목' },
+        { id: 'rB_subtype', label: '[산업재해] 산업재해 상세 유형' },
+        { id: 'rB_register', label: '[산업재해] 등록자' },
+        { id: 'rB_approver', label: '[산업재해] 결재자' },
+      ];
+      bFields.forEach(f => {
+        const el = document.getElementById(f.id);
+        if (el && !el.value.trim()) {
+          errors.push({ label: f.label, element: el });
+          markInvalid(el);
+        }
+      });
+      if (!document.querySelector('input[name="rB_safetyPanel"]:checked')) {
+        const target = document.getElementById('rB_sp_y');
+        errors.push({ label: '[산업재해] 안전위원회 진행 여부', element: target });
+      }
+    }
+
+    // === STEP 4: 프로세스 수행 체크리스트 (최소 1개 체크) ===
+    if (STATE.currentBranch === 'A') {
+      const checked = document.querySelectorAll('input[name="rA_proc"]:checked').length;
+      if (checked === 0) {
+        const sec = document.getElementById('branch-A-4');
+        errors.push({ label: '[STEP4 노무] 프로세스 수행 결과 (최소 1개 항목 체크)', element: sec });
+        if (sec) sec.classList.add('invalid');
+      }
+    } else if (STATE.currentBranch === 'B') {
+      const checked = document.querySelectorAll('input[name="rB_proc"]:checked').length;
+      if (checked === 0) {
+        const sec = document.getElementById('branch-B-4');
+        errors.push({ label: '[STEP4 산업재해] 프로세스 수행 결과 (최소 1개 항목 체크)', element: sec });
+        if (sec) sec.classList.add('invalid');
+      }
+    }
+
+    // === STEP 5: 기능 정상 작동 여부 (모든 기능 행에 정상/오류 선택, 오류면 유형도) ===
+    const validateFuncTable = (prefix, branchLabel, funcNames) => {
+      funcNames.forEach((fname, i) => {
+        const radios = document.querySelectorAll(`input[name="${prefix}_func${i}"]`);
+        const checked = document.querySelector(`input[name="${prefix}_func${i}"]:checked`);
+        const row = radios.length > 0 ? radios[0].closest('.func-row') : null;
+        if (!checked) {
+          errors.push({ label: `[STEP5 ${branchLabel}] ${fname} - 정상/오류 선택`, element: row });
+          if (row) row.classList.add('invalid');
+        } else if (checked.value === '오류') {
+          // 오류 선택 시 유형 드롭다운도 필수
+          const selectEl = document.getElementById(`${prefix}_f${i}_select`);
+          if (selectEl && !selectEl.value.trim()) {
+            errors.push({ label: `[STEP5 ${branchLabel}] ${fname} - 오류 유형 선택`, element: selectEl });
+            markInvalid(selectEl);
+          }
+        }
+      });
+    };
+    if (STATE.currentBranch === 'A') {
+      const aFuncs = ['이슈등록 단계','이슈 상세 등록 단계','결재라인 단계','첨부파일 저장','메일알림 기능','종료 처리'];
+      validateFuncTable('fA', '노무', aFuncs);
+    } else if (STATE.currentBranch === 'B') {
+      const bFuncs = ['사고 등록 저장','첨부파일 저장','결재 프로세스','단계 이동','알림 기능','재발방지 등록'];
+      validateFuncTable('fB', '산업재해', bFuncs);
+    }
+
+    // === STEP 6: 운영 검증 Q1~Q4 (라디오) ===
+    const opQs = [
+      { name: 'op_q1', label: '[STEP6] 실제 업무 프로세스와 유사 여부' },
+      { name: 'op_q2', label: '[STEP6] 현업 사용 가능 여부' },
+      { name: 'op_q3', label: '[STEP6] 필수 기능 누락 여부' },
+      { name: 'op_q4', label: '[STEP6] 오픈 전 수정 필요 여부' },
+    ];
+    opQs.forEach(q => {
+      if (!document.querySelector(`input[name="${q.name}"]:checked`)) {
+        // 첫 번째 라디오의 부모를 찾아서 첫 invalid가 그쪽으로 스크롤되도록
+        const first = document.querySelector(`input[name="${q.name}"]`);
+        errors.push({ label: q.label, element: first ? first.closest('.yn-row') : null });
+      }
+    });
+
+    // === STEP 7: 팀 최종 의견 (Q1~Q8) ===
+    // Q1: op_help (라디오)
+    if (!document.querySelector('input[name="op_help"]:checked')) {
+      errors.push({ label: '[STEP7 Q1] 실제 업무 도움 여부', element: document.querySelector('.question-card[data-q="q1"]') });
+      markCard('.question-card[data-q="q1"]');
+    }
+    // Q2: op_helpful (textarea)
+    const q2El = document.getElementById('op_helpful');
+    if (q2El && !q2El.value.trim()) {
+      errors.push({ label: '[STEP7 Q2] 현업 적용성', element: q2El });
+      markInvalid(q2El);
+      markCard('.question-card[data-q="q2"]');
+    }
+    // Q3: op_improve (textarea)
+    const q3El = document.getElementById('op_improve');
+    if (q3El && !q3El.value.trim()) {
+      errors.push({ label: '[STEP7 Q3] 운영 리스크 / 개선 필요사항', element: q3El });
+      markInvalid(q3El);
+      markCard('.question-card[data-q="q3"]');
+    }
+    // Q4: op_market (라디오)
+    if (!document.querySelector('input[name="op_market"]:checked')) {
+      errors.push({ label: '[STEP7 Q4] HR / 노무 담당자 관점', element: document.querySelector('.question-card[data-q="q4"]') });
+      markCard('.question-card[data-q="q4"]');
+    }
+    // Q5: op_comp (체크박스, 1개 이상)
+    if (document.querySelectorAll('input[name="op_comp"]:checked').length === 0) {
+      errors.push({ label: '[STEP7 Q5] 제니엘 이슈프리 핵심 경쟁력 (최소 1개)', element: document.querySelector('.question-card[data-q="q5"]') });
+      markCard('.question-card[data-q="q5"]');
+    }
+    // Q6: op_required (textarea)
+    const q6El = document.getElementById('op_required');
+    if (q6El && !q6El.value.trim()) {
+      errors.push({ label: '[STEP7 Q6] 오픈 전 보완 필요 사항', element: q6El });
+      markInvalid(q6El);
+      markCard('.question-card[data-q="q6"]');
+    }
+    // Q7: op_summary (textarea)
+    const q7El = document.getElementById('op_summary');
+    if (q7El && !q7El.value.trim()) {
+      errors.push({ label: '[STEP7 Q7] 팀 종합 의견', element: q7El });
+      markInvalid(q7El);
+      markCard('.question-card[data-q="q7"]');
+    }
+    // Q8: op_final (라디오)
+    if (!document.querySelector('input[name="op_final"]:checked')) {
+      errors.push({ label: '[STEP7 Q8] 최종 평가 · 오픈 가능 여부', element: document.querySelector('.question-card[data-q="q8"]') });
+      markCard('.question-card[data-q="q8"]');
+    }
+
+    return errors;
+  }
+
+  // 사용자가 입력하기 시작하면 invalid 표시 자동 해제
+  document.addEventListener('input', function(e) {
+    if (e.target && e.target.classList && e.target.classList.contains('invalid')) {
+      e.target.classList.remove('invalid');
+      // 부모 question-card의 invalid도 해제
+      const card = e.target.closest('.question-card');
+      if (card) card.classList.remove('invalid');
+    }
+  });
+  document.addEventListener('change', function(e) {
+    if (e.target && e.target.type === 'radio') {
+      // 같은 name 라디오 그룹 주변의 question-card invalid 해제
+      const card = e.target.closest('.question-card');
+      if (card) card.classList.remove('invalid');
+      const row = e.target.closest('.yn-row');
+      if (row) row.classList.remove('invalid');
+      // STEP5: func-row 라디오 선택 시 invalid 해제
+      const funcRow = e.target.closest('.func-row');
+      if (funcRow) funcRow.classList.remove('invalid');
+    }
+    if (e.target && e.target.name === 'op_comp') {
+      const card = e.target.closest('.question-card');
+      if (card) card.classList.remove('invalid');
+    }
+    // STEP4: 프로세스 체크박스 클릭 시 분기 섹션 invalid 해제
+    if (e.target && (e.target.name === 'rA_proc' || e.target.name === 'rB_proc')) {
+      const sec = e.target.closest('.branch-section');
+      if (sec) sec.classList.remove('invalid');
+    }
+  });
+
   async function submitResult(e) {
     e.preventDefault();
     if (!STATE.currentBranch) {
       alert('이슈 분기를 선택해 주세요.');
+      return false;
+    }
+
+    // ====== 전체 필수 항목 검증 ======
+    const validationErrors = validateResultForm();
+    if (validationErrors.length > 0) {
+      // 첫 번째 오류 위치로 스크롤
+      const first = validationErrors[0];
+      if (first.element) {
+        first.element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // 입력 가능한 요소면 포커스
+        if (typeof first.element.focus === 'function' && first.element.tagName !== 'DIV') {
+          setTimeout(() => first.element.focus({ preventScroll: true }), 350);
+        }
+      }
+      alert(`다음 ${validationErrors.length}개 필수 항목이 누락되었습니다:\n\n` +
+        validationErrors.slice(0, 8).map((v, i) => `${i + 1}. ${v.label}`).join('\n') +
+        (validationErrors.length > 8 ? `\n... 외 ${validationErrors.length - 8}건` : '')
+      );
       return false;
     }
 
@@ -7082,6 +7874,9 @@
     return stage.replace(/\s/g, '');
   }
 
+  // ====== 관리자 - 오류 다중 선택 상태 ======
+  const ADMIN_ERR_SELECTION = new Set(); // _sheetId 들의 집합. 없으면 e.id
+
   function renderAdminErrors() {
     const stageF = document.getElementById('admErrStage').value;
     const menuF = document.getElementById('admErrMenu').value;
@@ -7101,24 +7896,158 @@
 
     const tbody = document.getElementById('admErrTbody');
     if (filtered.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state"><span class="emoji">🗂</span>조건에 맞는 오류가 없습니다.</div></td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><span class="emoji">🗂</span>조건에 맞는 오류가 없습니다.</div></td></tr>`;
+      updateAdminErrSelectionUI();
       return;
     }
 
     const menuClassMap = { '노무': 'menu-1', '산업재해': 'menu-2', '내정보': 'menu-3', '공지사항': 'menu-4' };
     tbody.innerHTML = filtered.map(e => {
       const sCls = stageClassName(e.stage);
+      const selKey = e._sheetId || e.id;
+      const checked = ADMIN_ERR_SELECTION.has(selKey) ? 'checked' : '';
+      const rowSelClass = ADMIN_ERR_SELECTION.has(selKey) ? 'row-selected' : '';
       return `
-      <tr onclick="openAdminErrModal('${e.id}')">
-        <td class="col-id">${e.id}</td>
-        <td><span class="tag ${menuClassMap[e.menu] || 'menu-4'}">${e.menu}</span></td>
-        <td class="col-content">${escapeHTML(e.content)}</td>
-        <td>${e.errType}</td>
-        <td>${e.reporter}</td>
-        <td>${e.date}</td>
-        <td><span class="stage-chip s-${sCls}"><span class="dot"></span>${e.stage}</span></td>
+      <tr class="${rowSelClass}" data-sel-key="${escapeAttr(selKey)}">
+        <td class="col-check" onclick="event.stopPropagation()">
+          <input type="checkbox" class="row-check" ${checked} onclick="event.stopPropagation()" onchange="toggleAdminErrSelection('${escapeAttr(selKey)}', this)" aria-label="선택" />
+        </td>
+        <td class="col-id" onclick="openAdminErrModal('${e.id}')">${e.id}</td>
+        <td onclick="openAdminErrModal('${e.id}')"><span class="tag ${menuClassMap[e.menu] || 'menu-4'}">${e.menu}</span></td>
+        <td class="col-content" onclick="openAdminErrModal('${e.id}')">${escapeHTML(e.content)}</td>
+        <td onclick="openAdminErrModal('${e.id}')">${e.errType}</td>
+        <td onclick="openAdminErrModal('${e.id}')">${e.reporter}</td>
+        <td onclick="openAdminErrModal('${e.id}')">${e.date}</td>
+        <td onclick="openAdminErrModal('${e.id}')"><span class="stage-chip s-${sCls}"><span class="dot"></span>${e.stage}</span></td>
       </tr>
     `;}).join('');
+
+    updateAdminErrSelectionUI();
+  }
+
+  // 속성값 안전 escape (이미 escapeHTML 있지만 attr용 single quote escape)
+  function escapeAttr(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/'/g, '&#39;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  // 개별 체크박스 토글
+  function toggleAdminErrSelection(selKey, checkbox) {
+    if (checkbox.checked) {
+      ADMIN_ERR_SELECTION.add(selKey);
+    } else {
+      ADMIN_ERR_SELECTION.delete(selKey);
+    }
+    // 행 강조 토글
+    const row = checkbox.closest('tr');
+    if (row) row.classList.toggle('row-selected', checkbox.checked);
+    updateAdminErrSelectionUI();
+  }
+
+  // 전체 선택 토글
+  function toggleAllAdminErrSelection(masterCheck) {
+    const tbody = document.getElementById('admErrTbody');
+    const checks = tbody.querySelectorAll('input.row-check');
+    checks.forEach(c => {
+      c.checked = masterCheck.checked;
+      const row = c.closest('tr');
+      const selKey = row.getAttribute('data-sel-key');
+      if (!selKey) return;
+      if (masterCheck.checked) {
+        ADMIN_ERR_SELECTION.add(selKey);
+        row.classList.add('row-selected');
+      } else {
+        ADMIN_ERR_SELECTION.delete(selKey);
+        row.classList.remove('row-selected');
+      }
+    });
+    updateAdminErrSelectionUI();
+  }
+
+  // 선택 해제
+  function clearAdminErrSelection() {
+    ADMIN_ERR_SELECTION.clear();
+    const tbody = document.getElementById('admErrTbody');
+    tbody.querySelectorAll('input.row-check').forEach(c => { c.checked = false; });
+    tbody.querySelectorAll('tr.row-selected').forEach(r => r.classList.remove('row-selected'));
+    const master = document.getElementById('admErrSelectAll');
+    if (master) master.checked = false;
+    updateAdminErrSelectionUI();
+  }
+
+  // 선택 상태 UI 갱신 (액션바 표시/숨김 + 카운트 + 전체체크 상태)
+  function updateAdminErrSelectionUI() {
+    const bar = document.getElementById('admErrBulkBar');
+    const countEl = document.getElementById('admErrSelectedCount');
+    const master = document.getElementById('admErrSelectAll');
+    const count = ADMIN_ERR_SELECTION.size;
+    if (countEl) countEl.textContent = count;
+    if (bar) bar.classList.toggle('show', count > 0);
+
+    // 현재 보이는 행 기준 전체 체크 상태 업데이트
+    if (master) {
+      const tbody = document.getElementById('admErrTbody');
+      const checks = tbody.querySelectorAll('input.row-check');
+      if (checks.length === 0) {
+        master.checked = false;
+        master.indeterminate = false;
+      } else {
+        const checkedCount = Array.from(checks).filter(c => c.checked).length;
+        master.checked = checkedCount === checks.length;
+        master.indeterminate = checkedCount > 0 && checkedCount < checks.length;
+      }
+    }
+  }
+
+  // 선택 삭제 실행
+  async function deleteSelectedAdminErrors() {
+    if (ADMIN_ERR_SELECTION.size === 0) return;
+    const count = ADMIN_ERR_SELECTION.size;
+    if (!confirm(`선택된 ${count}건의 오류 카드를 삭제하시겠습니까?\n삭제된 데이터는 복구할 수 없습니다.`)) return;
+
+    // 삭제할 항목 추출 (현재 STATE.errors 기준)
+    const toDelete = STATE.errors.filter(e => ADMIN_ERR_SELECTION.has(e._sheetId || e.id));
+
+    showLoading(`삭제 중... (0/${count})`);
+    let success = 0;
+    let failed = 0;
+    for (let i = 0; i < toDelete.length; i++) {
+      const e = toDelete[i];
+      const msgEl = document.getElementById('_appLoaderMsg');
+      if (msgEl) msgEl.textContent = `삭제 중... (${i + 1}/${count})`;
+      try {
+        if (e._sheetId) {
+          await sheetsApi.remove('errors', e._sheetId);
+        }
+        success++;
+      } catch (err) {
+        console.error('삭제 실패:', e.id, err);
+        failed++;
+      }
+    }
+    hideLoading();
+
+    // 로컬 STATE에서도 제거 (성공한 항목 한정 — 실패한 항목은 다시 조회됐을 때 다시 나타날 수 있음)
+    const failedSet = new Set();
+    // 성공/실패 추적이 정확하지 않으면 모두 재조회로 sync
+    STATE.errors = STATE.errors.filter(e => !ADMIN_ERR_SELECTION.has(e._sheetId || e.id));
+
+    // 선택 초기화 + 화면 갱신
+    ADMIN_ERR_SELECTION.clear();
+    renderAdminErrors();
+    renderDashboard();
+
+    // 결과 안내
+    if (failed === 0) {
+      document.getElementById('successTitle').textContent = '삭제 완료';
+      document.getElementById('successMsg').innerHTML = `${success}건의 오류 카드가 삭제되었습니다.`;
+      openModal('successModal');
+    } else {
+      alert(`삭제 완료: ${success}건\n삭제 실패: ${failed}건\n실패한 항목은 새로고침 후 확인해 주세요.`);
+      // 실패 항목 동기화 위해 데이터 재조회
+      await loadAllData();
+      renderAdminErrors();
+      renderDashboard();
+    }
   }
 
   function renderAdminResults() {
